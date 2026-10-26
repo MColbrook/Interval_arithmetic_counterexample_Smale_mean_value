@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "degree": 29984,
+  "method": "One disjoint Rouche disk per critical point; count equals derivative degree",
+  "critical_points_counted_with_multiplicity": 29983,
+  "all_critical_points_simple": true,
+  "strict_smale_lower_bound": "10000000001/10000000000",
+  "minimum_printed_lower": "1.000000004075288820814",
+  "minimum_printed_upper": "1.000000522220071320738",
+  "numeric_printing_guard": "0.000000000000001",
+  "minimum_safe_lower": "1.000000004075287820814",
+  "minimum_safe_upper": "1.000000522220072320738",
+  "seconds": 1124.166949748993,
+  "inputs": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "flags": [
+      "-O2",
+      "-std=c++17",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-frounding-math",
+      "-DN_PARAM=1874",
+      "-DBLOCKS_PARAM=64",
+      "-DTAIL_BLOCKS_PARAM=8",
+      "-DEXTRA_BLOCKS_PARAM=128"
+    ],
+    "sha256": {
+      "polynomial.json": "36511eb0489973d3b9547c74f6809de365e55f816da24e0eaf1883c1f3459f74",
+      "parameters.txt": "57a4b12c36dac0007d7294b4cf217b3707decf0cc36ae26f0b7c50468344eb6c",
+      "critical_disks.txt": "2056dd03387d5e8da83c96d34a4353648ea25bd58d0945ba8cbf3bd8af2c6375",
+      "verify.cpp": "7e4dd5d7e6d178e85c0b1ab98a57dca3245093a4ae21168f23d37cd129936284",
+      "rigorous_interval.hpp": "3e5d7673b5ab6d9a13460ffdaec08b8f7b20f048ebe41e83b7ddf43a963163e9",
+      "make_parameters.py": "0d89243b9c8aef32a33c6ccfa05639597d8b9b73a09f010738e2608acd8a4d2e",
+      "run_verification.py": "f94e61a44c83969172c25dd99c150beaee6e794967393263cb80889b9be9a356"
+    }
+  },
+  "certificate_log_sha256": "b2f730cff8983473c09d8af87c07f8236377242f878a3075232f660ab678699e"
+}

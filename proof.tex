@@ -1,0 +1,626 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo,microtype,mathtools,amssymb,amsthm,booktabs,array}
+\usepackage[margin=25mm]{geometry}
+\usepackage{xurl,hyperref,listings}
+\hypersetup{hidelinks,pdftitle={An explicit degree-29984 Smale counterexample}}
+\renewcommand{\UrlFont}{\normalfont\ttfamily\small}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,frame=single}
+\newtheorem{theorem}{Theorem}\newtheorem{lemma}{Lemma}\newtheorem{proposition}{Proposition}
+\newcommand{\C}{\mathbb C}\newcommand{\Q}{\mathbb Q}\newcommand{\Smal}{\mathcal S}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\file}[1]{\textnormal{\small\ttfamily\nolinkurl{#1}}}
+\newcommand{\astar}{\widehat a}
+\allowdisplaybreaks[2]\emergencystretch=2em
+\input{verified_bounds.tex}
+\title{An explicit polynomial of degree 29,984\\in Smale's mean value problem}
+\author{}
+\date{}
+\begin{document}\maketitle
+\begin{abstract}
+We specify a Gaussian-rational polynomial of degree 29,984 whose normalized
+divided difference exceeds one at every critical point. Its normalization
+point is independent of the anchor of the analytic model. A complete interval
+calculation isolates all 29,983 critical points and encloses their normalized
+quotients. We give the finite definition, local root and value estimates,
+and outward-rounding arguments used by the verifier. A local comparison
+shows that the same polynomial has a critical quotient below one at its model
+anchor.
+\end{abstract}
+
+\section{Result and scope}
+\begin{theorem}\label{thm:result}
+The exact polynomial $p\in\Q(i)[x]$ defined in Section~\ref{sec:definition},
+with the finite coefficient tables in \file{polynomial.json}, satisfies
+\[
+ \deg p=29\,984,\qquad p(0)=0,\qquad p'(0)=1,
+\]
+and
+\begin{equation}\label{eq:result}
+ \boxed{\CertifiedLower<\Smal(p,0):=
+ \min_{p'(c)=0}\abs{\frac{p(c)}c}<\CertifiedUpper.}
+\end{equation}
+All 29,983 critical points are simple. \UniquenessStatement
+\end{theorem}
+
+The finite specification and the rational containing disks suffice to reproduce
+the interval proof. The computation isolates and checks every critical point
+of this polynomial.
+
+The model anchor $a$ and the normalization base $\astar$ are different.
+The letter $b$ denotes the rational approximation to an algebraic constant.
+Every numerical string, including terminating decimals and scientific
+notation, denotes an exact rational number. The specified phase has modulus
+one exactly.
+
+\section{Explicit finite polynomial}\label{sec:definition}
+Set
+\[
+ m=16,\quad N=1874,\quad L=N-2=1872,\qquad
+ A=\frac{1061603}{250000},\quad C=1+A^2,\quad S=A+1/A,
+\]
+\[
+ q(z)=\frac{z^{16}+iA}{S},\qquad v(z)=iq(z).
+\]
+The exact amplitude, Cayley parameter, and phase are
+\[
+ \gamma=0.61480744530374742407,\qquad t=55.5578744900222005754,\qquad
+ \omega=\frac{1+it}{1-it}.
+\]
+Thus $\gamma>0$ and $|\omega|=1$ exactly. The normalization base is
+\[
+ \boxed{\astar=1.04015231339331770677+0.302102329270430736141\,i.}
+\]
+The other Gaussian-rational parameters $a,r,b,\xi_1,\xi_2$ are printed in the
+appendix and supplied in the JSON specification.
+
+Define
+\[
+ d_0=C+\bar r^{16}(-A^2+iA),\quad
+ d_1=iA-\bar r^{16}(1+iA),\quad
+ \alpha=-\frac{Cd_1}{iAd_0}.
+\]
+For $1\le k\le15$, let $\nu_k=1-k/16$ and define
+\[
+ b_{k,0}=1,\quad b_{k,j}=b_{k,j-1}\frac{\nu_k-j+1}{j},\qquad
+ c_{k,0}=1,\quad c_{k,j}=\alpha c_{k,j-1}+b_{k,j}\quad(1\le j\le L).
+\]
+Thus $b_{k,j}=\binom{\nu_k}{j}$. With
+\[
+ J(z)=-rC(1+v(z))+\bar r^{15}(1+iA)z^{16},
+\]
+define
+\begin{equation}\label{eq:h}
+\begin{split}
+ h_L(z)={}&\frac{J(z)}{d_0}\sum_{j=0}^{L-1}(\alpha v(z))^j\\
+ &+\frac{(1-|r|^2)C}{d_0}\sum_{k=1}^{15}\bar r^{k-1}b^kz^k
+                   \sum_{j=0}^{L}c_{k,j}v(z)^j.
+\end{split}
+\end{equation}
+The first sum ends at $L-1$, the other sums at $L$. The $b$ in this formula
+is the specified rational complex number, not an unspecified algebraic root.
+
+For the corrections, set
+\[
+ K(z)=(z-\xi_1)^2(z-\xi_2)^2,\qquad \mu=(\xi_1+\xi_2)/2,
+\]
+\[
+ R_0(z)=\sum_{\ell=0}^{63}\sum_{k=0}^{15}
+ d_{\ell k}\left(\frac z{6/5}\right)^kq(z)^\ell,
+ \qquad T(z)=\sum_{j=0}^3\eta_j(z-\mu)^j,
+\]
+\[
+ \Delta_0(z)=(z-a)^2[K(z)R_0(z)+T(z)],\qquad
+ X(z)=(z-a)^2\sum_{\ell=0}^{127}\sum_{k=0}^{15}
+ x_{\ell k}\left(\frac z{6/5}\right)^kq(z)^\ell.
+\]
+The arrays $d,\eta,x$ are respectively \file{correction_coefficients},
+\file{free_coefficients}, and \file{extra_correction_coefficients} in the
+specification. The retained Hermite coefficient is exactly zero.
+The high-degree tail is
+\[
+ E(z)=\sum_{\ell=0}^{7}\sum_{k=0}^{15}
+ t_{\ell k}\left(\frac z{6/5}\right)^kq(z)^\ell,
+ \qquad H(z)=\omega[\gamma q(z)^{1874}+q(z)^{1866}E(z)],
+\]
+where $t_{\ell k}$ is the table \file{tail_coefficients}, not the scalar Cayley
+parameter $t$. Define
+\begin{equation}\label{eq:P}
+ P(z)=(z-a)\frac{h_L(z)}{h_L(a)}+\Delta_0(z)+X(z)+H(z)
+\end{equation}
+and finally
+\begin{equation}\label{eq:p}
+ \boxed{p(x)=\frac{P(\astar+x)-P(\astar)}{P'(\astar)}.}
+\end{equation}
+Both corrections vanish to order two at $a$, whereas normalization is at
+$\astar$. The evaluator uses the full finite values $P(\astar)$ and
+$P'(\astar)$ in \eqref{eq:p}, and encloses the latter away from zero.
+This gives $p(0)=0$ and $p'(0)=1$ exactly.
+
+The degree bounds are
+\[
+\begin{array}{c|r}
+\text{term}&\text{degree, at most}\\\hline
+ h_L&29\,967\\(z-a)h_L&29\,968\\
+ \Delta_0&1029\\X&2049\\q^{1866}E&29\,983.
+\end{array}
+\]
+Only $\omega\gamma q^{1874}$ contributes in degree 29,984. Its coefficient
+is nonzero, so translation and the nonzero normalization in \eqref{eq:p}
+preserve degree exactly.
+
+\section{An independent base point}\label{sec:search}
+The anchor $a$ defines the analytic model, while the critical-point functional
+can be evaluated at any base point $b_0$ with $P'(b_0)\ne0$. For a fixed
+polynomial and fixed critical point $c$, define
+\[
+ Q_c(b_0)=\frac{P(c)-P(b_0)}{(c-b_0)P'(b_0)}.
+\]
+Where the denominators and numerator are nonzero,
+\begin{equation}\label{eq:base-gradient}
+ \frac{d}{db_0}\log Q_c(b_0)
+ =-\frac{P'(b_0)}{P(c)-P(b_0)}+\frac1{c-b_0}
+  -\frac{P''(b_0)}{P'(b_0)}.
+\end{equation}
+Changing $b_0$ leaves every critical point fixed. The base point therefore
+supplies two real parameters without changing the degree. The normalization
+in \eqref{eq:p} follows after the polynomial and base point are chosen.
+
+
+
+
+
+The local computation in \file{base_comparison.log} isolates a root of $P'$
+in containing disk 27158 for which
+\[
+ 0.99982426177940
+ <\abs{\frac{P(c)-P(a)}{(c-a)P'(a)}}
+ <0.99982426177944<1.
+\]
+Thus the independent base point is essential for this example: at the model
+anchor $a$, the same polynomial has a critical quotient below one.
+\section{Complete critical-point coverage}\label{sec:count}
+Computations use the $P$-coordinate. A critical point $c$ corresponds to
+$c-\astar$ for $p$, and the required quotient is
+\begin{equation}\label{eq:quotient}
+ Q(c)=\abs{\frac{P(c)-P(\astar)}{(c-\astar)P'(\astar)}}.
+\end{equation}
+The file \file{critical_disks.txt} supplies exactly $29\,983$ rational centers
+and positive rational radii. These are \emph{containing disks}; the accepted
+root disks may be smaller and may have recentered dyadic centers.
+
+\begin{lemma}[Local linear comparison]\label{lem:model}
+Let $G,g$ be holomorphic on a neighborhood of $D=\{z:|z-z_0|\le\rho\}$.
+Suppose $E\ge\sup_D|G-g|$ and $V\ge\sup_D|g'(z)-g'(z_0)|$. If
+\begin{equation}\label{eq:rouche}
+ |g(z_0)|+\rho V+E<\rho|g'(z_0)|,
+\end{equation}
+then $G$ has exactly one zero in the open disk, counted with multiplicity.
+\end{lemma}
+\begin{proof}
+On the boundary, integration along the radial segment gives
+\[
+ |G(z)-g'(z_0)(z-z_0)|\le E+|g(z_0)|+\rho V
+                  <|g'(z_0)(z-z_0)|.
+\]
+Rouch\'e's theorem compares $G$ with a nonzero linear polynomial, which has
+one zero inside~\cite{DLMFComplex}. In particular, the unique zero is simple.
+\end{proof}
+
+The first local test applies this lemma with $G=P'$ and with $g$ the derivative
+of the analytic comparison function defined below. When its approximation
+error forces a needlessly large disk, the code uses finite-polynomial values
+at the center instead.
+
+\begin{lemma}[Finite-center comparison]\label{lem:finite}
+Let $e=P'-g$ be holomorphic on a neighborhood of the disk of radius $R>\rho$
+about $z_0$, and suppose $|e|\le E_R$ there. If
+$V\ge\sup_{|z-z_0|\le\rho}|g'(z)-g'(z_0)|$, then
+\[
+ V_P=V+\frac{2\rho E_R}{(R-\rho)^2}
+ \ \ge\ \sup_{|z-z_0|\le\rho}|P''(z)-P''(z_0)|.
+\]
+Consequently,
+\begin{equation}\label{eq:finite}
+ |P'(z_0)|+\rho V_P<\rho|P''(z_0)|
+\end{equation}
+proves exactly one simple critical point in the disk.
+\end{lemma}
+\begin{proof}
+Cauchy's derivative estimate yields $|e''(z)|\le2E_R/(R-\rho)^2$ on the
+smaller disk. Integrate along a radius to bound $e'(z)-e'(z_0)$, add the
+bound for $g'$, and apply the same linear comparison to $P'$.
+\end{proof}
+
+Every containing-disk pair that is not already separated by its real-coordinate
+gap is checked using a rigorous lower bound for center distance and an upper
+bound for the sum of radii. The real-coordinate sweep uses the largest radius,
+so omitted pairs are provably disjoint. Every accepted root disk is checked
+to lie inside its corresponding containing disk. Finite Newton steps merely
+propose centers: only the subsequent strict inequalities certify a root.
+
+There are $29\,983$ disjoint accepted disks, each containing one root with
+multiplicity, and $\deg P'=29\,983$. The fundamental theorem of algebra
+therefore exhausts the critical set and proves that every critical point
+is simple. The sixteen work partitions are index classes modulo sixteen.
+
+\section{Analytic comparison at the fixed model anchor}\label{sec:model}
+Set $D=\Delta_0+X$ and introduce, solely for the proof,
+\[
+ \beta=\left(\frac{1+iA}{C}\right)^{1/16},\quad U=1+iq,\quad
+ W=\beta zU^{-1/16},\quad B(w)=\frac{w-r}{1-\bar r w},
+\]
+\[
+ B_a=B(W(a)),\qquad G(z)=\frac{B(W(z))}{B_a},\qquad
+ P_*(z)=(z-a)G(z)+D(z)+H(z),\qquad g=P_*'.
+\]
+Fractional powers have their principal values. In every comparison box, the
+code excludes the branch cut and all relevant poles. The segment-denominator
+check in Section~\ref{sec:remainder} permits these local comparisons also when
+$|q|\ge1$. The disjoint-disk degree count supplies complete critical-point
+coverage.
+Direct differentiation gives
+\[
+ W'=\frac{\beta}{C}U^{-1-1/16},\quad
+ G'=\frac{(1-|r|^2)W'}{(1-\bar rW)^2B_a},\quad
+ G''=G'\left[-\frac{17iAz^{15}}{1+iAz^{16}}
+                    +\frac{2\bar rW'}{1-\bar rW}\right].
+\]
+The exact rational identity $W^{16}=(1+iA)z^{16}/(1+iAz^{16})$ gives
+\begin{equation}\label{eq:rationalization}
+ B(W)=\frac{J}{d_0(1-\alpha v)}+
+ \frac{(1-|r|^2)C}{d_0}\sum_{k=1}^{15}\bar r^{k-1}\beta^kz^k
+                       \frac{(1+v)^{\nu_k}}{1-\alpha v}.
+\end{equation}
+This is obtained by multiplying $B(W)$ by
+$\sum_{j=0}^{15}(\bar rW)^j$. It is finite algebra, not a convergence assertion
+about that geometric series.
+
+\subsection{The algebraic constant is rigorously isolated}
+Let $\epsilon=2\cdot10^{-60}$ and $T_\beta(z)=z^{16}-(1+iA)/C$.
+Using exact GMP rational arithmetic, the initializer verifies
+\begin{multline*}
+ |\Re T_\beta(b)|+|\Im T_\beta(b)|+
+ \sum_{j=2}^{16}\binom{16}{j}(|\Re b|+|\Im b|)^{16-j}\epsilon^j\\
+ <16(\Re b)^{15}\epsilon.
+\end{multline*}
+Rouch\'e's theorem therefore places one root within $\epsilon$ of $b$.
+The verified inequalities $\Re b>\epsilon$, $\Im b>\epsilon$, and
+$10(\Im b+\epsilon)<\Re b-\epsilon$ select the principal root. In particular,
+\[
+ |b^k-\beta^k|\le a_k:=k\epsilon(|\beta|+\epsilon)^{k-1}.
+\]
+The polynomial itself still uses $b\in\Q(i)$ throughout.
+
+\section{Finite binomial remainders beyond the Taylor circle}\label{sec:remainder}
+For $0<\nu<1$, define
+\[
+ T_L^{\nu}(v)=(1+v)^\nu-\sum_{j=0}^L\binom\nu j v^j.
+\]
+\begin{lemma}\label{lem:stieltjes}
+For $v\notin(-\infty,-1]$,
+\begin{equation}\label{eq:stieltjes}
+ T_L^{\nu}(v)=\frac{(-1)^L\sin(\pi\nu)}{\pi}\,v^{L+1}
+             \int_0^1\frac{t^{L-\nu}(1-t)^\nu}{1+tv}\,dt.
+\end{equation}
+Set $u=|v|$, $\sigma(v)=\min_{0\le t\le1}|1+tv|$, and
+$b_L=|\binom\nu{L+1}|$. Then
+\begin{align}
+ |T_L^{\nu}(v)|&\le b_Lu^{L+1}/\sigma,\label{eq:T0}\\
+ |(T_L^{\nu})'(v)|&\le b_L\left(
+ \frac{(L+1)u^L}{\sigma}
+ +\frac{L+1-\nu}{L+2}\frac{u^{L+1}}{\sigma^2}\right).
+ \label{eq:T1}
+\end{align}
+These formulas do not require $|v|<1$.
+\end{lemma}
+\begin{proof}
+For $|v|<1$, expand $(1+tv)^{-1}$ and apply Euler's beta integral
+\cite{DLMFBeta}. Its coefficients are exactly the binomial tail coefficients,
+including their signs. Both sides of \eqref{eq:stieltjes} are holomorphic on
+the slit plane, so analytic continuation gives the identity there. The
+integral's total mass, after multiplication by $\sin(\pi\nu)/\pi$, is $b_L$.
+Its normalized first moment in $t$ is $(L+1-\nu)/(L+2)$. Taking absolute
+values, and then differentiating, proves \eqref{eq:T0}--\eqref{eq:T1}.
+\end{proof}
+
+For a complex box with point midpoint $c$ and enclosing disk radius $r_0$,
+$\sigma(v)\ge\sigma(c)-r_0$. The value $\sigma(c)$ is the distance from zero
+to the segment from $1$ to $1+c$: it is $1$, $|1+c|$, or
+$|\Im c|/|c|$, according as the minimizing projection lies at an endpoint or
+in the interior. When interval tests cannot determine the case uniquely,
+the smaller candidate bound is used. A strict positive lower bound both
+bounds the integral and excludes the binomial branch cut on the entire box.
+
+The recurrence for $c_{k,j}$ implies the finite identity
+\[
+ \mathcal R_{k,L}(v):=\frac{(1+v)^{\nu_k}}{1-\alpha v}
+                  -\sum_{j=0}^Lc_{k,j}v^j
+ =\frac{T_L^{\nu_k}(v)+\alpha c_{k,L}v^{L+1}}{1-\alpha v}.
+\]
+With $d=|1-\alpha v|$, take
+\[
+ T_{k,0}=\frac{b_Lu^{L+1}/\sigma+|\alpha c_{k,L}|u^{L+1}}d,
+\]
+\[
+ T_{k,1}=\frac{b_L[(L+1)u^L/\sigma+
+             (L+1-\nu_k)u^{L+1}/((L+2)\sigma^2)]
+              +(L+1)|\alpha c_{k,L}|u^L}d
+               +\frac{|\alpha|T_{k,0}}d.
+\]
+They bound $|\mathcal R_{k,L}|$ and $|\mathcal R_{k,L}'|$ respectively.
+All denominator lower bounds are checked to be positive.
+
+\subsection{Combining all analytic errors}
+Set $B_0=|1+v|$, $t=|\alpha|u$, and
+\[
+ w_k=\frac{(1-|r|^2)C|r|^{k-1}}{|d_0|},\qquad
+ H_k=B_0^{\nu_k}/d,\qquad
+ H_{k,1}=\nu_kB_0^{\nu_k-1}/d+|\alpha|B_0^{\nu_k}/d^2.
+\]
+The finite geometric identity and \eqref{eq:rationalization} give
+\begin{align*}
+ e_h={}&\frac{|J|t^L}{|d_0|d}+
+ \sum_{k=1}^{15}w_k|z|^k(|b|^kT_{k,0}+a_kH_k),\\
+ e_{h'}={}&\frac{|J'|t^L}{|d_0|d}+
+ \frac{|J||\alpha||v'|}{|d_0|}
+             \left(\frac{Lt^{L-1}}d+\frac{t^L}{d^2}\right)\\
+ &+\sum_{k=1}^{15}w_k\left[
+ k|z|^{k-1}(|b|^kT_{k,0}+a_kH_k)
+ +|z|^k|v'|(|b|^kT_{k,1}+a_kH_{k,1})\right].
+\end{align*}
+These bound $|h_L-B(W)|$ and the difference of their derivatives.
+The initializer proves $|h_L(a)-B_a|<\epsilon_a=10^{-50}$ and
+$h_a^-:=|B_a|-\epsilon_a>0$. Hence, for $G_L=h_L/h_L(a)$,
+\[
+ |G_L-G|\le e_g:=\frac{e_h+|G|\epsilon_a}{h_a^-},\qquad
+ |G_L'-G'|\le e_{g'}:=\frac{e_{h'}+|G'|\epsilon_a}{h_a^-}.
+\]
+It follows that $|P'-g|\le e_g+|z-a|e_{g'}$. The polynomial corrections and
+high-degree tail cancel exactly from this difference. Every expression is
+evaluated on the entire current box, not on a set of samples.
+
+\section{Finite-polynomial evaluation at a center}\label{sec:evaluation}
+The code has two implementations of $h_L,h_L',h_L''$. Direct finite Horner
+evaluation propagates values and two derivatives through the rational
+coefficient recurrence. The faster implementation subtracts a rigorously
+enclosed \emph{finite} remainder from $(1+v)^\nu$.
+
+Normalize the beta weight in \eqref{eq:stieltjes} to a probability measure and
+define $\mu_j=\mathbb E[(1-t)^j]=(\nu+1)_j/(L+2)_j$. A finite geometric identity
+implies, for any integer $K\ge0$,
+\[
+ \mathbb E\frac1{1+tv}=\sum_{j=0}^{K-1}
+ \frac{\mu_jv^j}{(1+v)^{j+1}}+\varepsilon_K,
+ \qquad
+ |\varepsilon_K|\le
+ \frac1{\sigma(v)}\left(\frac{|v|}{|1+v|}\right)^K\mu_K.
+\]
+For $s=1-t$, the finite geometric remainder is
+$[sv/(1+v)]^K/(1+tv)$, which proves the bound directly.
+
+The implementation selects the best bound among $0\le K\le32$ on a slightly
+larger box. If $E$ bounds the error in $T_L^\nu$ there, and a disk of radius
+$R$ about every center-box point lies in that larger box, Cauchy's estimate
+bounds the errors in its first two derivatives by $E/R$ and $2E/R^2$.
+The branch and denominator checks are repeated on the larger box.
+
+For clarity, let $S_K(v)$ denote the finite moment sum and write
+$A_{k,L}(v)=\sum_{j=0}^Lc_{k,j}v^j$. With $e_k=\alpha c_{k,L}$,
+\[
+ A_{k,L}=\frac{(1+v)^{\nu_k}-T_L^{\nu_k}-e_kv^{L+1}}{1-\alpha v},
+\]
+\[
+ A_{k,L}'=\frac{\nu_k(1+v)^{\nu_k-1}-(T_L^{\nu_k})'
+                -(L+1)e_kv^L+\alpha A_{k,L}}{1-\alpha v},
+\]
+\[
+ A_{k,L}''=\frac{\nu_k(\nu_k-1)(1+v)^{\nu_k-2}-(T_L^{\nu_k})''
+          -L(L+1)e_kv^{L-1}+2\alpha A_{k,L}'}{1-\alpha v}.
+\]
+These identities account for every finite-tail term. If the moment enclosure
+is too wide or a local analytic check is inconclusive, the code falls back to
+the direct finite recurrence. Neither implementation substitutes the limiting
+analytic function for the finite polynomial.
+
+The polynomial corrections are evaluated in their factored, compressed bases,
+including the additional 128 blocks of $X$. The tail uses the exact product
+rule for $H=\omega q^{1866}(\gamma q^8+E)$. Consequently the evaluated finite jets are
+\[
+\begin{aligned}
+ P&=(z-a)h_L/h_L(a)+D+H,\\
+ P'&=[h_L+(z-a)h_L']/h_L(a)+D'+H',\\
+ P''&=[2h_L'+(z-a)h_L'']/h_L(a)+D''+H''.
+\end{aligned}
+\]
+
+
+
+\section{Quotient enclosures at the independent base}\label{sec:values}
+This section gives the new formulas used by the verifier. Set
+\[
+ V=P(\astar),\qquad D_\star=P'(\astar),\qquad
+ T_*(z)=P_*(z),\qquad g=T_*',
+\]
+where $V,D_\star$ are directly enclosed by the finite polynomial evaluator.
+The initializer proves $|D_\star|>0$. Define
+\[
+ E_0=|z-a|e_g,\qquad E_1=e_g+|z-a|e_{g'}.
+\]
+The preceding error bounds give $|P-T_*|\le E_0$ and $|P'-g|\le E_1$.
+For a disk $D=\{|z-z_0|\le\rho\}$ avoiding $\astar$, define
+\[
+ A_*(z)=\frac{T_*(z)-V}{z-\astar},\qquad
+ \widetilde Q(z)=\frac{T_*(z)-V}{(z-\astar)D_\star}.
+\]
+Then
+\[
+ \widetilde Q'(z)=\frac{g(z)-A_*(z)}{(z-\astar)D_\star},
+ \qquad
+ \left|\frac{P(z)-V}{(z-\astar)D_\star}-\widetilde Q(z)\right|
+ \le\frac{E_0}{|z-\astar||D_\star|}.
+\]
+Consequently the model-center enclosure has center modulus
+$|\widetilde Q(z_0)|$ and error radius
+\begin{equation}\label{eq:model-value}
+ \rho\sup_D|\widetilde Q'|
+ +\sup_D\frac{E_0}{|z-\astar||D_\star|}.
+\end{equation}
+Subtract this radius for a lower bound and add it for an upper bound.
+All suprema and center values are evaluated by outward intervals.
+
+For the finite-center test, use the directly evaluated modulus
+\[
+ q_0=\left|\frac{P(z_0)-V}{(z_0-\astar)D_\star}\right|.
+\]
+Since
+\[
+ \left|P'(z)-\frac{P(z)-V}{z-\astar}\right|
+ \le |g(z)-A_*(z)|+E_1+\frac{E_0}{|z-\astar|},
+\]
+a whole-disk variation bound is
+\begin{equation}\label{eq:finite-value}
+ R_Q=\rho\sup_D
+ \frac{|g-A_*|+E_1+E_0/|z-\astar|}{|z-\astar||D_\star|}.
+\end{equation}
+The interval $[q_0-R_Q,q_0+R_Q]$ encloses the critical quotient in the disk.
+These formulas follow by differentiation and integration along a radius;
+they do not assume that the center is an exact critical point.
+The interval divisions prove that every accepted disk avoids $\astar$.
+Uncertainty in $V$ and $D_\star$ is retained in every operation.
+
+
+
+The exhaustive run alone proves
+\[
+ \BaseLower<\Smal(p,0)<\BaseUpper.
+\]
+The refinement retests \RefinedCount\ potentially limiting containing disks.
+Each contains exactly one root by the exhaustive stage, so its refined and
+original quotient intervals can be intersected. All other disks retain their
+original bounds. The resulting global enclosure is
+\[
+ \RefinedLower<\Smal(p,0)<\RefinedUpper.
+\]
+The minimizing disk has index \MinimizerIndex. For every other critical point,
+\[Q(c)>\OtherLower.\]
+\UniquenessExplanation
+\section{Interval arithmetic and numerical trust assumptions}\label{sec:arithmetic}
+The backend encloses basic real operations by rounding the computed
+\texttt{long double} endpoint one representable number outward. It runs in
+IEEE round-to-nearest mode with binary arithmetic and at least 64 significand
+bits. Rational constants are first enclosed with GMP/MPFR conversion.
+Nonfinite intervals, zero-containing divisors, and unsupported formats are
+rejected. Transcendental endpoints are computed by MPFR at 192 bits with
+rounding toward the appropriate infinity~\cite{MPFR}. Compiler flags disable
+fast-math reassociation and contraction of multiply-add expressions.
+
+\subsection{Floating-center complex disks}
+A complex enclosure is $D(c,r)$, with a floating-point center and an outward
+radius. Before center roundoff is added, the exact rules are
+\[
+ D(c,r)+D(d,s)\subset D(c+d,r+s),\qquad
+ D(c,r)D(d,s)\subset D(cd,|c|s+|d|r+rs).
+\]
+Let $u=2^{-p}$ for significand precision $p$, and let $\tau$ be the least
+positive normal number of the hardware type. It dominates the subnormal
+rounding floor. If $M_c\ge|c|$ and $M_d\ge|d|$, the implementation adds
+\[
+ 4u(M_c+M_d)+8\tau\quad\hbox{for complex addition},
+\]
+\[
+ 8uM_cM_d+32\tau\quad\hbox{for complex multiplication}.
+\]
+These are conservative upper bounds for the Euclidean error of the computed
+center. To verify them, use the scalar round-to-nearest bound
+$|\operatorname{fl}(x)-x|\le u|x|+\eta/2$, where $\eta$ is the least positive
+subnormal. The two additions have total absolute error at most
+$\sqrt2u(M_c+M_d)+\eta$. For a complex product, four products and two additions
+give total absolute error at most
+$(4u+2u^2)M_cM_d+(3+2u)\eta$. The displayed allowances dominate both for $p\ge64$.
+A similar scalar-multiplication bound includes the radius of any interval
+scalar. Magnitudes may be replaced by their larger $\ell^1$ bounds; all
+radius computations remain outward interval operations.
+
+Horner propagation carries the value and its first two derivatives. For
+example, $(Uq+w)''=U''q+2U'q'+Uq''+w''$. Fixed interval coefficients are
+converted to enclosing disks; their conversion error is added to the radius.
+These rules apply on a complete input box as well as at a center. They avoid
+repeated rectangular wrapping but do not change any polynomial coefficient.
+The exact-rational regression program performs 64,800 image-containment tests,
+including subnormal and extreme-exponent inputs. It supplements this error
+argument rather than replacing it.
+
+High powers are evaluated by rotating the input through a quarter turn into
+a verified right half-plane and using interval modulus and argument. The
+rotation is undone algebraically. All trigonometric argument ranges used by
+this certificate are bounded; the endpoint/extremum enumeration in the
+interval backend includes every possible extremum on those ranges. Wide
+intervals are enclosed by $[-1,1]$ instead.
+
+The calculation relies on these enclosure arguments, the supplied source,
+GMP/MPFR, the compiler with the stated flags, and the hardware semantics
+specified above.
+
+
+
+\section{Complete verification, audits, and reproduction}\label{sec:reproduce}
+The exhaustive wrapper requires all sixteen work partitions to pass and
+checks that the recorded critical-point indices are exactly
+$0,\ldots,29982$, each once. The partitions are index classes modulo sixteen;
+they are not geometric sheets used to infer root coverage.
+The containing disks are rational data, and their disjointness and the root
+counts do not depend on the numerical search.
+
+\file{make_parameters.py} checks the exact coefficient tables and both
+base-point coordinates against the native rational input serialization.
+\file{run_verification.py} compiles the verifier and runs all partitions.
+\file{refine_certificate.py} binds its sharper calculations to the hashes and
+complete coverage of the exhaustive stage. \file{audit_certificate.py}
+checks degree bounds, data identity, coverage, and the combined intervals.
+\file{audit_exact_disks.py} independently checks rational containing-disk
+disjointness, accepted-disk containment, and every recorded strict root-count
+comparison. \file{audit_normalization.py} additionally checks the new base
+parameters and the nonzero derivative enclosures in all partition logs.
+
+The exact-rational audit expands printed endpoints outward. The base summary
+widens endpoints by $10^{-15}$, while the refinement and coverage audit use
+$(1+|\mathrm{endpoint}|)10^{-18}$. Published endpoints are rounded outward
+again. An integrity audit checks recorded calculations; it does not replace
+the native analytic enclosure computation.
+
+
+
+From the repository directory, run
+\begin{lstlisting}
+python3 certify.py --jobs 4
+\end{lstlisting}
+This runs exact input checks, local arithmetic and anchor comparisons,
+exhaustive verification, refinement, and the coverage and normalization
+checks. It requires Python 3.10 or later, a C++17 compiler, GMP with C++
+headers, and MPFR on the supported binary \texttt{long double} platform.
+The README gives the build commands and arithmetic requirements.
+To check the supplied completed calculation without rerunning its interval
+operations, use \file{check_stored_certificate.py}.
+
+
+
+\appendix
+\section{Exact seed parameters and coefficient tables}
+\input{seed_parameters.tex}
+The normalization base $\astar$, amplitude $\gamma$, and phase parameter are
+given in Section~\ref{sec:definition}. The JSON contains all 1,024 coefficients
+of $R_0$, four cubic-remainder coefficients, 2,048 coefficients of
+$X/(z-a)^2$, and 128 coefficients of $E$. These tables and the finite
+recurrence define the polynomial without a monomial expansion.
+
+\begin{thebibliography}{9}
+\bibitem{DLMFComplex} NIST Digital Library of Mathematical Functions,
+\S1.10(iv), Rouch\'e's theorem, and \S1.11(i), polynomial zeros.
+\url{https://dlmf.nist.gov/1.10} and \url{https://dlmf.nist.gov/1.11}.
+\bibitem{DLMFBeta} NIST Digital Library of Mathematical Functions,
+\S5.12, Euler's beta integral, equation 5.12.1.\ \url{https://dlmf.nist.gov/5.12}.
+\bibitem{MPFR} GNU MPFR Manual, rounding modes and correct rounding.
+\url{https://www.mpfr.org/mpfr-current/mpfr.html}.
+\end{thebibliography}
+\end{document}

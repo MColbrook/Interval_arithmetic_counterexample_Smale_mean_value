@@ -1,0 +1,3 @@
+# Preserve the exact bytes used by certificate hashes on every platform.
+# Disable automatic newline conversion while retaining normal text diffs.
+* -text

@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "Please cite the accompanying manuscript when using this certificate."
+title: "Explicit certificate for a degree-29,984 counterexample to Smale's mean value conjecture"
+type: dataset
+license: Apache-2.0
+authors:
+  - family-names: Adamczewski
+    given-names: Tom
+  - family-names: Colbrook
+    given-names: Matthew J.
+abstract: >-
+  Exact Gaussian-rational polynomial data, critical-point disks, interval
+  certificate records, verification code, and a mathematical proof for the
+  degree-29,984 example in the accompanying manuscript.
+keywords:
+  - Smale's mean value conjecture
+  - polynomial critical points
+  - interval arithmetic
+  - computer-assisted proof
+preferred-citation:
+  type: unpublished
+  title: "From boundary geometry to counterexamples in Smale's mean value problem"
+  authors:
+    - family-names: Adamczewski
+      given-names: Tom
+    - family-names: Colbrook
+      given-names: Matthew J.
+  year: 2026
+  notes: "Manuscript; see the appendix for the explicit polynomial construction."

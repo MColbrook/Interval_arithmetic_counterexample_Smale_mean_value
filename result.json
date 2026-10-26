@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "degree": 29984,
+  "critical_points_counted_with_multiplicity": 29983,
+  "all_roots_simple": true,
+  "normalization": "p(x)=(P(normalization_base+x)-P(normalization_base))/Pprime(normalization_base)",
+  "normalization_base": {
+    "re": "1.04015231339331770677e+00",
+    "im": "3.02102329270430736141e-01"
+  },
+  "model_anchor": {
+    "re": "10408093642746148137157525156090766412437/10000000000000000000000000000000000000000",
+    "im": "1520951082508748352631132143284236049973/5000000000000000000000000000000000000000"
+  },
+  "p_at_zero": "0",
+  "derivative_at_zero": "1",
+  "simple_safe_lower": "1.00000049595801",
+  "simple_safe_upper": "1.00000049595804",
+  "minimum_safe_lower": "1.000000495958018283457999504041981714542",
+  "minimum_safe_upper": "1.000000495958039273167000495958039271167",
+  "unique_minimizer_proved": true,
+  "all_other_quotients_greater_than": "1.000000499277647135644999500722352862355",
+  "specification_sha256": "36511eb0489973d3b9547c74f6809de365e55f816da24e0eaf1883c1f3459f74",
+  "minimizing_disk": 28891
+}

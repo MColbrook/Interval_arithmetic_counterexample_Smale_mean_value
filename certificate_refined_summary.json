@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "degree": 29984,
+  "complete_base_critical_points": 29983,
+  "refined_disks": 316,
+  "minimum_safe_lower": "1.000000495958018283457999504041981714542",
+  "minimum_safe_upper": "1.000000495958039273167000495958039271167",
+  "minimizing_disk": 28891,
+  "unique_minimizer_proved": true,
+  "all_other_critical_quotients_greater_than": "1.000000499277647135644999500722352862355",
+  "printed_endpoint_guard": "(1+abs(endpoint))*1e-18",
+  "seconds": 31.73843765258789,
+  "compiler_flags": [
+    "-O2",
+    "-std=c++17",
+    "-fno-fast-math",
+    "-ffp-contract=off",
+    "-frounding-math",
+    "-DN_PARAM=1874",
+    "-DBLOCKS_PARAM=64",
+    "-DTAIL_BLOCKS_PARAM=8",
+    "-DEXTRA_BLOCKS_PARAM=128"
+  ],
+  "base_log_sha256": {
+    "0": "76750f8ee7356131fa4334d1281727eec199481ab9a741f64dee55dbd78a3718",
+    "1": "f1b9041b9ae47544bb1bfb179a0afb9edf33669ea15b696f80f6944def8d314c",
+    "2": "d55f209d94250facab81b621348957145670f2fc64cb662a8973722293b0968a",
+    "3": "e42d6322b0bef42f8659dc41db9748454105e2265dba2f62f070cdd098b2d538",
+    "4": "2ab2d70bbdc2fa0aabb75c87e8c9cce4dbbdb80513521e44bf5d11e806eac845",
+    "5": "e45a50faea99e7f39d14eae84255fa42c0e9fc8c6b184fed6d35e1981a5f7bd1",
+    "6": "08ff0c58a323f796fec5dd163bcb1637164f72439b8add8430e83b1333707262",
+    "7": "ec1ba99bc1c0ed819ddbd0c19b9086f8b0995520d091ee080c01b1721c655566",
+    "8": "f31ed5ff909bbe26aff5eedcab8558a1b3a6fc70d17272f7f38654cc83566dbe",
+    "9": "ba3c629b37eae62efbac67c64ad15e772710af2d10d47684c1b3ea2ad2d51bd7",
+    "10": "5af951f1b45cc565ba69c0ccbb887909ceae5a43401434872acfbb81429b6e54",
+    "11": "2c2024a87a9bc5370b46a809c86dc07492603d3345999cd2cd617c38d5cd2de6",
+    "12": "0cb712c17fa1489091643e4e9f23446038a3294ed5d3c68c21e19cfb4b9d809e",
+    "13": "00946af8cb2726197fc1dd0d28365a848a13501e23cf128fe73af8ef7d8c9cbf",
+    "14": "0b52188d900c7a45a97294ce55a70a753af40950c9c41b7409bcdab7a7aeff82",
+    "15": "b7535b4a590657df484e0fec5e870b261fa3c019432c2bd8b286d66e7e153a31"
+  },
+  "sha256": {
+    "polynomial.json": "36511eb0489973d3b9547c74f6809de365e55f816da24e0eaf1883c1f3459f74",
+    "parameters.txt": "57a4b12c36dac0007d7294b4cf217b3707decf0cc36ae26f0b7c50468344eb6c",
+    "critical_disks.txt": "2056dd03387d5e8da83c96d34a4353648ea25bd58d0945ba8cbf3bd8af2c6375",
+    "verify.cpp": "7e4dd5d7e6d178e85c0b1ab98a57dca3245093a4ae21168f23d37cd129936284",
+    "rigorous_interval.hpp": "3e5d7673b5ab6d9a13460ffdaec08b8f7b20f048ebe41e83b7ddf43a963163e9",
+    "refine_disks.cpp": "fbc72cf206f783b227187f7d9edb7ce52ee498a02768c7a3d802f8541e5df063",
+    "refinement_indices.txt": "f905b8a9525b9c1df86cdce1056fd389be0ad2867a30b3170871cd4e602ef5fa",
+    "certificate_refined.log": "6cf04acc0557edc5020e5f469a44a3476a87e719fc5be41be77ee8112400d9b0"
+  }
+}
